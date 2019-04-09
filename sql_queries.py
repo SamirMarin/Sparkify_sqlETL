@@ -47,7 +47,7 @@ artist_table_create = ("""CREATE TABLE IF NOT EXISTS artists\
                             artist_id varchar,\
                             name varchar,\
                             location varchar,\
-                            lattitude numeric,\
+                            latitude numeric,\
                             longitude numeric\
                        );\
                        """)
@@ -72,11 +72,13 @@ songplay_table_insert = ("""
 user_table_insert = ("""
 """)
 
-song_table_insert = ("""
-""")
+song_table_insert = ("""INSERT INTO songs (song_id, title, artist_id, year, duration) \
+                        VALUES (%s, %s, %s, %s, %s) \
+                     """)
 
-artist_table_insert = ("""
-""")
+artist_table_insert = ("""INSERT INTO artists (artist_id, name, location, latitude, longitude) \
+                          VALUES(%s, %s, %s, %s, %s)
+                       """)
 
 
 time_table_insert = ("""

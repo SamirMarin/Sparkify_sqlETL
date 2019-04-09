@@ -5,59 +5,68 @@ import pandas as pd
 from sql_queries import *
 
 
+def song_data_tuple(df):
+    test = (df.song_id.values[0], df.title.values[0], df.artist_id.values[0], int(df.year.values[0]), df.duration.values[0])
+    print(test)
+    return test
+
+def artist_data_tuple(df):
+    return (df.artist_id.values[0], df.artist_name.values[0], df.artist_location.values[0], df.artist_latitude.values[0], df.artist_longitude.values[0])
+
+
 def process_song_file(cur, filepath):
     # open song file
-    df = 
+    df = pd.read_json(filepath, lines=True)
 
     # insert song record
-    song_data = 
+    song_data = song_data_tuple(df)
     cur.execute(song_table_insert, song_data)
     
     # insert artist record
-    artist_data = 
+    artist_data = artist_data_tuple(df)
     cur.execute(artist_table_insert, artist_data)
 
 
-def process_log_file(cur, filepath):
-    # open log file
-    df = 
-
-    # filter by NextSong action
-    df = 
-
-    # convert timestamp column to datetime
-    t = 
-    
-    # insert time data records
-    time_data = 
-    column_labels = 
-    time_df = 
-
-    for i, row in time_df.iterrows():
-        cur.execute(time_table_insert, list(row))
-
-    # load user table
-    user_df = 
-
-    # insert user records
-    for i, row in user_df.iterrows():
-        cur.execute(user_table_insert, row)
-
-    # insert songplay records
-    for index, row in df.iterrows():
-        
-        # get songid and artistid from song and artist tables
-        cur.execute(song_select, (row.song, row.artist, row.length))
-        results = cur.fetchone()
-        
-        if results:
-            songid, artistid = results
-        else:
-            songid, artistid = None, None
-
-        # insert songplay record
-        songplay_data = 
-        cur.execute(songplay_table_insert, songplay_data)
+#def process_log_file(cur, filepath):
+#    # open log file
+#    df = 
+#
+#    # filter by NextSong action
+#    df = 
+#
+#    # convert timestamp column to datetime
+#    t = 
+#    
+#    # insert time data records
+#    time_data = 
+#    column_labels = 
+#    time_df = 
+#
+#    for i, row in time_df.iterrows():
+#        cur.execute(time_table_insert, list(row))
+#
+#    # load user table
+#    user_df = 
+#
+#    # insert user records
+#    for i, row in user_df.iterrows():
+#        cur.execute(user_table_insert, row)
+#
+#    # insert songplay records
+#    for index, row in df.iterrows():
+#        
+#        # get songid and artistid from song and artist tables
+#        cur.execute(song_select, (row.song, row.artist, row.length))
+#        results = cur.fetchone()
+#        
+#        if results:
+#            songid, artistid = results
+#        else:
+#            songid, artistid = None, None
+#
+#        # insert songplay record
+#        songplay_data = 
+#        cur.execute(songplay_table_insert, songplay_data)
 
 
 def process_data(cur, conn, filepath, func):
@@ -84,7 +93,7 @@ def main():
     cur = conn.cursor()
 
     process_data(cur, conn, filepath='data/song_data', func=process_song_file)
-    process_data(cur, conn, filepath='data/log_data', func=process_log_file)
+    #process_data(cur, conn, filepath='data/log_data', func=process_log_file)
 
     conn.close()
 
