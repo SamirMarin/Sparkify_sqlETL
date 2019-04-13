@@ -1,15 +1,14 @@
 This is a Python ETL pipeline, that extracts user and songs activity data to create star schema using postgres.
 
 ## Datasets
-### The data in in json format:
-1. song dataset - contains artist and song data
-2. log dataset - user activity
+1. song dataset - json data that contains artist and song information
+2. log dataset - jsons data that contains user activity
 
 ## Star schema created by pipeline
-##### Fact table
+### Fact table
   * songplays - records in log data associated with song plays
 
-##### Dimension tables
+### Dimension tables
   * users - users associated with songs being played
   * songs - songs that are being played by users
   * aritsts - artist of the songs that are being played
@@ -18,19 +17,22 @@ This is a Python ETL pipeline, that extracts user and songs activity data to cre
 
 # Running the pipeline
 > to run we need python3 and postgres
-##### you must create the star schema tables before running the pipeline
-###### to create the tables run:
+
+> you must create the star schema tables before running the pipeline
+
+> to create the tables run:
  ```
- >>>python3 create_tables.py
+ python3 create_tables.py
  ```
  >>> this will drop tables if they exist and create new emplty tables
 
-#### once star schema tables are created you can run the pipeline
-##### to run the pipeline run:
+> once star schema tables are created you can run the pipeline
+
+> to run the pipeline run:
 ```
 python3 etl.py
 ```
- >>> this will extract the data from the json files and insert it in the start schema.
+ >>> this will extract the data from the json files and insert it in the star schema.
  
   
 
